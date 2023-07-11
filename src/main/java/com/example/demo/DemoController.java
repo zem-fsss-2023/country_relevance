@@ -9,9 +9,13 @@ public class DemoController {
 
     private TeacherRepository teacherRepository;
     private WikipediaRepository wikipediaRepository;
-    public DemoController(TeacherRepository teacherRepository, WikipediaRepository wikipediaRepository){
+
+    private ChatGptClientImpl chatGptClient;
+    public DemoController(TeacherRepository teacherRepository, WikipediaRepository wikipediaRepository, ChatGptClientImpl chatGptClient){
         this.teacherRepository = teacherRepository;
         this.wikipediaRepository = wikipediaRepository;
+        this.chatGptClient = chatGptClient;
+
     }
     @GetMapping("test")
     public String testEndpoint() {
@@ -47,6 +51,11 @@ public class DemoController {
     @GetMapping("getWikipedia")
     public List<WikipediaData> getWikipedia(@RequestParam("name") String name) {
         return wikipediaRepository.findByTitle(name);
+    }
+
+    @GetMapping("gptautocomplete")
+    public String getGpt(@RequestParam("text") String name) {
+        return chatGptClient.generateText(name);
     }
 
 

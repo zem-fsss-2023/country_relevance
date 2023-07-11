@@ -37,10 +37,10 @@ public class ChatGptClientImpl implements ChatGptClient {
     }
 
     @Override
-    public String generateNoteText() {
+    public String generateText(String text) {
         GptAutocompletionRequestDto requestBody = new GptAutocompletionRequestDto(
                 "gpt-3.5-turbo",
-                "create a random to do item that would appear on a random to do list. Return only the description, nothing else"
+                text
         );
         GptAutocompletionResponseDto response = chatGptApi.generateTask(requestBody, apiKey);
 

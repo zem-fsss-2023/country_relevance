@@ -4,5 +4,5 @@ import co.elastic.clients.elasticsearch.security.GetUserResponse;
 
 public interface UserApi {
 
-    GetUserResponse gather(Integer page)
+    GetUserResponse gather(Integer page);
 }
