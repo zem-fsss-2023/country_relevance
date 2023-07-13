@@ -85,8 +85,9 @@ public class DemoController {
     }
 
     @GetMapping("getCity")
-    public String getCountries(@RequestParam("ip") String ip) {
+    public String[] getCountries(@RequestParam("ip") String ip) {
         IpData data = getIpData(ip);
+        String cityName = data.getCity();
         List<WikipediaData> wikiData = wikipediaRepository.findByTitle(data.getCity());
        // /*
         if (wikiData.size() == 0) {
@@ -100,9 +101,8 @@ public class DemoController {
         } else {
             textZaChatGpt = text + "\n" + prompt;
         }
-        String response = chatGptClient.generateText(textZaChatGpt);
-       // */
-        //String text = wikiData.get(0).text();
+        String povzetek = chatGptClient.generateText(textZaChatGpt);
+        String[] response = {cityName, povzetek};
         return response;
     }
 
