@@ -84,14 +84,16 @@ public class DemoController {
         return chatGptClient.generateText(name);
     }
 
-    @GetMapping("getCountries")
-    public String[] getCountries(@RequestParam("name") String name) {
-        List<WikipediaData> wikiData = wikipediaRepository.findByTitle(name);
+    @GetMapping("getCity")
+    public String getCountries(@RequestParam("ip") String ip) {
+        IpData data = getIpData(ip);
+        List<WikipediaData> wikiData = wikipediaRepository.findByTitle(data.getCity());
+       // /*
         if (wikiData.size() == 0) {
             return null;
         }
         String text = wikiData.get(0).text();
-        String prompt = "iz danega teksta izloci drzave in jih zapisi v isti vrstici, locene z vejicami";
+        String prompt = "povzemi dano besedilo";
         String textZaChatGpt = "";
         if (text.length() > 4097) {
             textZaChatGpt = text.substring(0, 4097) + "\n" + prompt;
@@ -99,9 +101,9 @@ public class DemoController {
             textZaChatGpt = text + "\n" + prompt;
         }
         String response = chatGptClient.generateText(textZaChatGpt);
-        String[] drzave = response.split(",");
-
-        return drzave;
+       // */
+        //String text = wikiData.get(0).text();
+        return response;
     }
 
     public IpData getIpData(String ip) {
