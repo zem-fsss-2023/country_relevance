@@ -9,4 +9,8 @@ public interface WikipediaRepository extends ElasticsearchRepository<WikipediaDa
     List<WikipediaData> findByTitle(String title);
     @Query("{\"match\": {\"title\": {\"query\": \"?0\"}}}")
     List<WikipediaData> findByTitleCustom(String title);
+
+    @Query("{\"bool\": {\"must\": [{\"match\": {\"title\": \"?0\"}}, {\"match\": {\"text\": \"?1\"}}]}}")
+    List<WikipediaData> findByTownAndCountry(String town, String country);
+
 }

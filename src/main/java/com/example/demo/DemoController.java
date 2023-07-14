@@ -12,10 +12,11 @@ import java.util.concurrent.TimeUnit;
 import io.micrometer.core.instrument.Timer;
 import org.springframework.web.client.RestTemplate;
 
-import org.springframework.web.client.RestTemplate;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class DemoController {
+
     private final Logger logger = LoggerFactory.getLogger(DemoController.class.getName());
 
     private final Counter noteCreationCounter;
@@ -85,10 +86,12 @@ public class DemoController {
     }
 
     @GetMapping("getCity")
+
     public String[] getCountries(@RequestParam("ip") String ip) {
+
         IpData data = getIpData(ip);
         String cityName = data.getCity();
-        List<WikipediaData> wikiData = wikipediaRepository.findByTitle(data.getCity());
+        List<WikipediaData> wikiData = wikipediaRepository.findByTownAndCountry(data.getCity(), data.getCountry_name());
        // /*
         if (wikiData.size() == 0) {
             return null;
