@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: zemregistry.azurecr.io/zemregistry/countryIP:${{ github.sha }}
+          tags: zemregistry.azurecr.io/zemregistry/countryip:${{ github.sha }}
           file: ./Dockerfile
           context: ./
 
